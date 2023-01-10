@@ -1,18 +1,30 @@
 package com.example.nfc0
 
-import android.nfc.NdefMessage
-import android.nfc.NdefRecord
-import android.nfc.NfcAdapter
-import android.nfc.NfcEvent
+import android.content.Intent
+import android.nfc.*
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getSystemService
+
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val CheckNFC = findViewById<TextView>(R.id.CheckNFC)
+
+        var nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if (nfcAdapter==null) {
+            CheckNFC.setText("no nfc");
+        } else {
+            CheckNFC.setText("NFC");
+        }
+        val tag: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
+        val InfoNFC = findViewById<TextView>(R.id.InfoNFC)
+        InfoNFC.setText(tag.toString())
 
 
         //проверка наличия и включённости
