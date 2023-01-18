@@ -1,3 +1,4 @@
+//ntag213+
 package com.example.nfc0
 
 import android.app.PendingIntent
@@ -5,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.nfc.*
 import android.nfc.tech.NfcA
+import android.nfc.tech.NfcF
 import android.os.Bundle
 import android.os.Trace.isEnabled
 import android.util.Log
@@ -34,8 +36,18 @@ class MainActivity : AppCompatActivity() {
 
 
         val tag: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
-        val InfoNFC = findViewById<TextView>(R.id.InfoNFC)
-        InfoNFC.setText(tag.toString())
+        val InfoNFC0 = findViewById<TextView>(R.id.InfoNFC0)
+        InfoNFC0.setText(tag.toString())
+
+
+        val InfoNFC1 = findViewById<TextView>(R.id.InfoNFC1)
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED == intent.action) { //?
+            intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)?.also { rawMessages ->
+                val messages: List<NdefMessage> = rawMessages.map { it as NdefMessage }
+                // Process the messages array.
+                InfoNFC1.setText(messages.toString())
+            }
+        }
 
 
 
@@ -58,6 +70,24 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
         */
+
+        //диспетчеризации переднего плана https://developer.android.com/guide/topics/connectivity/nfc/advanced-nfc.html#foreground-dispatch
+        val intent = Intent(this, javaClass).apply {
+            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        }
+        var pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent,
+            PendingIntent.FLAG_MUTABLE)
+        val ndef = IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED).apply {
+            try {
+                addDataType("*/*")    /* Handles all MIME based dispatches.
+                                 You should specify only the ones that you need. */
+            } catch (e: IntentFilter.MalformedMimeTypeException) {
+                throw RuntimeException("fail", e)
+            }
+        }
+        var intentFiltersArray = arrayOf(ndef)
+        var techListsArray = arrayOf(arrayOf<String>(NfcF::class.java.name))
+
 
     }
 
