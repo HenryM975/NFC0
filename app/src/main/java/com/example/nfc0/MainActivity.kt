@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         val tag: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
         val InfoNFC0 = findViewById<TextView>(R.id.InfoNFC0)
-        InfoNFC0.setText(tag.toString())
+        InfoNFC0.setText("EXTRA_TAG: " + tag.toString())
 
 
         val InfoNFC1 = findViewById<TextView>(R.id.InfoNFC1)
@@ -45,23 +45,28 @@ class MainActivity : AppCompatActivity() {
             intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)?.also { rawMessages ->
                 val messages: List<NdefMessage> = rawMessages.map { it as NdefMessage }
                 // Process the messages array.
-                InfoNFC1.setText(messages.toString())
+                InfoNFC1.setText("EXTRA_NDEF_MESSAGES: " + messages.toString())
             }
         }
         //2
         //val tagID: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_ID)
         val tag2: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
         val InfoNFC2 = findViewById<TextView>(R.id.InfoNFC2)
-        InfoNFC2.setText(tag2.toString())
+        if (tag2 != null) {
+            InfoNFC2.setText("EXTRA_TAG(id): " + tag2.id.toString())
+        }
 
         //3
         val InfoNFC3 = findViewById<TextView>(R.id.InfoNFC3)
-        val tag3: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_ID)
-        InfoNFC3.setText(tag3.toString())
+        //val tag3: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_ID)
+        val tag3: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
+        if (tag3 != null) {
+            InfoNFC3.setText("EXTRA_TAG(techList): " + tag3.techList.toString())//-
+        }
         //4
         val InfoNFC4 = findViewById<TextView>(R.id.InfoNFC4)
         val tag4: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_DATA)
-        InfoNFC4.setText(tag4.toString())
+        InfoNFC4.setText("EXTRA_DATA: " + tag4.toString())
 
 
 
