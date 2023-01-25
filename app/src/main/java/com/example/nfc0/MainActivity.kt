@@ -67,6 +67,23 @@ class MainActivity : AppCompatActivity() {
         val InfoNFC4 = findViewById<TextView>(R.id.InfoNFC4)
         val tag4: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_DATA)
         InfoNFC4.setText("EXTRA_DATA: " + tag4.toString())
+        //5
+        val InfoNFC5 = findViewById<TextView>(R.id.InfoNFC5)//-   https://developer.android.com/guide/topics/connectivity/nfc/advanced-nfc   ?
+        if (NfcAdapter.ACTION_TAG_DISCOVERED == intent.action) {
+            intent.getParcelableArrayExtra(NfcAdapter.EXTRA_TAG)?.also { rawMessages ->
+                val messages: List<NdefMessage> = rawMessages.map { it as NdefMessage }
+                // Process the messages array.
+                InfoNFC5.setText("EXTRA_TAG: " + messages.toString())
+            }
+        }
+
+
+
+
+
+
+        //WRITE
+
 
 
 
