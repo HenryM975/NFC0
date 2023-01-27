@@ -8,13 +8,8 @@ import android.nfc.*
 import android.nfc.tech.NfcA
 import android.nfc.tech.NfcF
 import android.os.Bundle
-import android.os.Trace.isEnabled
-import android.util.Log
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.os.TraceCompat.isEnabled
 
 
 class MainActivity : AppCompatActivity() {
@@ -69,13 +64,10 @@ class MainActivity : AppCompatActivity() {
         InfoNFC4.setText("EXTRA_DATA: " + tag4.toString())
         //5
         val InfoNFC5 = findViewById<TextView>(R.id.InfoNFC5)//-   https://developer.android.com/guide/topics/connectivity/nfc/advanced-nfc   ?
-        if (NfcAdapter.ACTION_TAG_DISCOVERED == intent.action) {
-            intent.getParcelableArrayExtra(NfcAdapter.EXTRA_TAG)?.also { rawMessages ->
-                val messages: List<NdefMessage> = rawMessages.map { it as NdefMessage }
-                // Process the messages array.
-                InfoNFC5.setText("EXTRA_TAG: " + messages.toString())
-            }
-        }
+
+
+        //val nfca = NfcA.get(tag5)//???
+        //InfoNFC5.setText("EXTRA_TAG: " + nfca.toString())
 
 
 
