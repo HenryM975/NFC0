@@ -10,6 +10,7 @@ import android.nfc.tech.NfcF
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         //val tag3: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_ID)
         val tag3: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
         if (tag3 != null) {
-            InfoNFC3.setText("EXTRA_TAG(techList): " + tag3.techList.toString())//-
+            InfoNFC3.setText("EXTRA_TAG(techList): " + Arrays.toString(tag3.techList))//-
         }
         //4
         val InfoNFC4 = findViewById<TextView>(R.id.InfoNFC4)
