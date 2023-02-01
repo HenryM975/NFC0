@@ -4,7 +4,9 @@ package com.example.nfc0
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentFilter
-import android.nfc.*
+import android.nfc.NdefMessage
+import android.nfc.NfcAdapter
+import android.nfc.Tag
 import android.nfc.tech.NfcA
 import android.nfc.tech.NfcF
 import android.os.Bundle
@@ -66,6 +68,14 @@ class MainActivity : AppCompatActivity() {
         //5
         val InfoNFC5 = findViewById<TextView>(R.id.InfoNFC5)//-   https://developer.android.com/guide/topics/connectivity/nfc/advanced-nfc   ?
 
+        val tag5: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
+        //val nfca = NfcA.get(tag5)
+        if(tag5 != null) {
+            val nfcA = NfcA.get(tag5)
+            nfcA.connect()
+            val result = nfcA.transceive(byteArrayOf(0x30.toByte(), 0x10.toByte()))
+            InfoNFC5.setText("EXTRA_TAG: " + result.toString())
+        }
 
         //val nfca = NfcA.get(tag5)//???
         //InfoNFC5.setText("EXTRA_TAG: " + nfca.toString())
