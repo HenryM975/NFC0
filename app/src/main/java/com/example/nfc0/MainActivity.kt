@@ -59,7 +59,8 @@ class MainActivity : AppCompatActivity() {
         //val tag3: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_ID)
         val tag3: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
         if (tag3 != null) {
-            InfoNFC3.setText("EXTRA_TAG(techList): " + Arrays.toString(tag3.techList))//-
+            var list = tag3.techList
+            InfoNFC3.setText("EXTRA_TAG " + "size: "+ list.size + " (techList[0]): " + list[0] )//techlist
         }
         //4
         val InfoNFC4 = findViewById<TextView>(R.id.InfoNFC4)
@@ -73,11 +74,13 @@ class MainActivity : AppCompatActivity() {
         if(tag5 != null) {
             val nfcA = NfcA.get(tag5)
             nfcA.connect()
-            val result = nfcA.transceive(byteArrayOf(0x30.toByte(), 0x10.toByte()))
+            val result = nfcA.transceive(byteArrayOf(0x30.toByte(), 0x10.toByte()))//180byte
             InfoNFC5.setText("EXTRA_TAG: " + result.toString())
         }
+        //6
+        
 
-        //val nfca = NfcA.get(tag5)//???
+            //val nfca = NfcA.get(tag5)//???
         //InfoNFC5.setText("EXTRA_TAG: " + nfca.toString())
 
 
