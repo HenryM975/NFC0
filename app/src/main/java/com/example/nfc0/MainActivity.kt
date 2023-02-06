@@ -72,11 +72,24 @@ class MainActivity : AppCompatActivity() {
         val tag5: Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
         //val nfca = NfcA.get(tag5)
         if(tag5 != null) {
+            //val nfcA = NfcA.get(tag5)
+            //nfcA.connect()
+            //val result = nfcA.transceive(byteArrayOf(0x10.toByte(), 0x30.toByte()))//180byte!!!!
             val nfcA = NfcA.get(tag5)
             nfcA.connect()
-            val result = nfcA.transceive(byteArrayOf(0x30.toByte(), 0x10.toByte()))//180byte
+            var result = nfcA.getMaxTransceiveLength()//TVAR!!!!
+            //val firstBlockNum = 0//0
+            //val lastBlockNum = 42//42
+            //val result: ByteArray = nfcA.transceive(
+            //    byteArrayOf(
+            //        0x3A.toByte(),
+            //        (firstBlockNum and 0x0ff).toByte(),
+            //        (lastBlockNum and 0x0ff).toByte()
+            //    )
+            //)
             InfoNFC5.setText("EXTRA_TAG: " + result.toString())
         }
+
         //6
         
 
